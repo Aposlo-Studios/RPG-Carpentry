@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RPG Carpentry &amp; Joinery | Devon &amp; Cornwall</title>
+  <meta name="description" content="Professional carpentry and joinery services across Devon and Cornwall. Specialising in bespoke doors, windows, flooring, fencing, canopies and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:        #c9a840;
+      --gold-light:  #e8c870;
+      --gold-dark:   #9a7820;
+      --black:       #0a0a0a;
+      --dark:        #111111;
+      --darker:      #0d0d0d;
+      --white:       #ffffff;
+      --grey:        #888888;
+      --light-grey:  #cccccc;
+      --gold-gradient: linear-gradient(135deg, #9a7820 0%, #c9a840 40%, #f0d575 65%, #c9a840 80%, #9a7820 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+    /* ─── Navigation ─── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      height: 100px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,64,0.15);
+      transition: all 0.3s ease;
+    }
+
+    .nav.scrolled {
+      height: 64px;
+      background: rgba(10,10,10,0.98);
+      border-bottom-color: rgba(201,168,64,0.3);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 88px;
+      width: 88px;
+      object-fit: contain;
+      border-radius: 50%;
+      transition: height 0.3s, width 0.3s;
+    }
+
+    .nav.scrolled .nav-logo img { height: 56px; width: 56px; }
+
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .nav-logo-text span:first-child {
+      font-family: 'Trajan Pro', 'TrajanPro3', 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-logo-text span:last-child {
+      font-size: 0.65rem;
+      color: var(--light-grey);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light-grey);
+      transition: color 0.25s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-cta {
+      padding: 0.55rem 1.5rem;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      border-radius: 2px;
+      font-size: 0.78rem !important;
+      letter-spacing: 0.12em !important;
+      transition: background 0.25s, color 0.25s !important;
+    }
+
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--gold);
+      transition: all 0.3s;
+    }
+
+    /* ─── Hero ─── */
+    .hero-scroll-container {
+      position: relative;
+      height: 600vh;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      overflow: hidden;
+    }
+
+    .hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .hero-loader {
+      position: absolute;
+      inset: 0;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      z-index: 2;
+      transition: opacity 0.5s ease;
+    }
+
+    .hero-loader.hidden { opacity: 0; pointer-events: none; }
+
+    .hero-loader-bar-wrap {
+      width: 180px;
+      height: 2px;
+      background: rgba(201,168,64,0.15);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .hero-loader-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--gold-gradient);
+      transition: width 0.1s linear;
+      border-radius: 2px;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.75) 100%),
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,64,0.07) 0%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      will-change: transform, opacity;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.4rem 1.2rem;
+      border: 1px solid rgba(201,168,64,0.3);
+      border-radius: 50px;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      background: rgba(201,168,64,0.06);
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--light-grey);
+      line-height: 1.7;
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.9rem 2.2rem;
+      background: var(--gold-gradient);
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.9rem 2.2rem;
+      border: 1px solid rgba(201,168,64,0.5);
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    .btn-outline:hover { background: rgba(201,168,64,0.08); transform: translateY(-2px); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--grey);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ─── Section Shared ─── */
+    section { padding: 100px 4rem; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      height: 1px;
+      width: 32px;
+      background: var(--gold);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-title em {
+      font-style: normal;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--light-grey);
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 560px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: var(--gold-gradient);
+      margin: 1.5rem 0;
+    }
+
+    /* ─── About ─── */
+    .about {
+      background: var(--darker);
+    }
+
+    .about-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 2.5rem;
+    }
+
+    .stat {
+      padding: 1.8rem;
+      background: rgba(201,168,64,0.05);
+      border: 1px solid rgba(201,168,64,0.1);
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-top: 0.25rem;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-logo-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+    }
+
+    .about-logo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(201,168,64,0.15);
+      border-radius: 4px;
+    }
+
+    .about-logo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(201,168,64,0.08);
+      border-radius: 3px;
+    }
+
+    .about-logo-wrap img {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 4px;
+      filter: drop-shadow(0 0 40px rgba(201,168,64,0.12));
+    }
+
+    .about-corner {
+      position: absolute;
+      width: 24px; height: 24px;
+      border-color: var(--gold);
+      border-style: solid;
+    }
+    .about-corner.tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .about-corner.tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+    .about-corner.bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+    .about-corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+    /* ─── Services ─── */
+    .services {
+      background: var(--black);
+    }
+
+    .services-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .services-header .divider { margin: 1.5rem auto; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      background: rgba(201,168,64,0.1);
+      border: 1px solid rgba(201,168,64,0.1);
+    }
+
+    .service-card {
+      background: var(--black);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 2px;
+      background: var(--gold-gradient);
+      transition: width 0.4s;
+    }
+
+    .service-card:hover { background: rgba(201,168,64,0.04); }
+    .service-card:hover::before { width: 100%; }
+
+    .service-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: var(--white);
+    }
+
+    .service-card p {
+      font-size: 0.82rem;
+      color: var(--grey);
+      line-height: 1.6;
+    }
+
+    /* ─── Portfolio ─── */
+    .portfolio {
+      background: var(--darker);
+    }
+
+    .portfolio-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .portfolio-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .portfolio-header .divider { margin: 1.5rem auto; }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .portfolio-card {
+      position: relative;
+      cursor: pointer;
+      border-radius: 4px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--dark);
+      group: true;
+    }
+
+    .portfolio-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .portfolio-card:hover img { transform: scale(1.06); }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+
+    .portfolio-overlay-always {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+      padding: 1.2rem 1.5rem 1rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .portfolio-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      text-shadow: 0 1px 4px rgba(201,168,64,0.5);
+    }
+
+    .portfolio-count {
+      font-size: 0.7rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-shadow: 0 1px 4px rgba(201,168,64,0.5);
+    }
+
+    .portfolio-hover-detail {
+      font-size: 0.78rem;
+      color: var(--light-grey);
+      margin-top: 0.4rem;
+    }
+
+    .portfolio-expand-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 0.8rem;
+      padding: 0.45rem 1rem;
+      border: 1px solid rgba(201,168,64,0.6);
+      color: var(--gold);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      width: fit-content;
+    }
+
+    /* ─── Lightbox ─── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.96);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: 1100px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lightbox-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(201,168,64,0.15);
+      margin-bottom: 1.5rem;
+    }
+
+    .lightbox-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .lightbox-close {
+      background: none;
+      border: 1px solid rgba(201,168,64,0.3);
+      color: var(--gold);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover { background: rgba(201,168,64,0.1); }
+
+    .lightbox-main {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 55vh;
+      object-fit: contain;
+      border-radius: 3px;
+      display: block;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(201,168,64,0.3);
+      color: var(--gold);
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      z-index: 10;
+    }
+
+    .lightbox-nav:hover { background: rgba(201,168,64,0.15); }
+    .lightbox-prev { left: -24px; }
+    .lightbox-next { right: -24px; }
+
+    .lightbox-counter {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--grey);
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .lightbox-thumbnails {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold-dark) var(--dark);
+    }
+
+    .lightbox-thumb {
+      flex-shrink: 0;
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 2px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, opacity 0.2s;
+      opacity: 0.6;
+    }
+
+    .lightbox-thumb.active {
+      border-color: var(--gold);
+      opacity: 1;
+    }
+
+    .lightbox-thumb:hover { opacity: 0.9; }
+
+    /* ─── Contact ─── */
+    .contact {
+      background: var(--black);
+    }
+
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-info-items {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
+
+    .contact-icon {
+      width: 48px; height: 48px;
+      background: rgba(201,168,64,0.08);
+      border: 1px solid rgba(201,168,64,0.2);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-item-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-item-value {
+      font-size: 1rem;
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    .contact-item-value a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-item-value a:hover { color: var(--gold); }
+
+    .contact-areas {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(201,168,64,0.05);
+      border: 1px solid rgba(201,168,64,0.1);
+      border-radius: 3px;
+    }
+
+    .contact-areas-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .contact-areas p {
+      font-size: 0.9rem;
+      color: var(--light-grey);
+      line-height: 1.6;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,64,0.2);
+      color: var(--white);
+      padding: 0.85rem 1rem;
+      border-radius: 2px;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.25s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--grey);
+    }
+
+    .form-group select option { background: var(--dark); }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-submit {
+      padding: 1rem 2rem;
+      background: var(--gold-gradient);
+      color: var(--black);
+      border: none;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: opacity 0.25s, transform 0.25s;
+      margin-top: 0.5rem;
+    }
+
+    .form-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .form-note {
+      font-size: 0.72rem;
+      color: var(--grey);
+      text-align: center;
+      margin-top: -0.5rem;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--darker);
+      border-top: 1px solid rgba(201,168,64,0.12);
+      padding: 3rem 4rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-logo img {
+      height: 88px;
+      width: 88px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .footer-logo-text span {
+      display: block;
+      font-family: 'Trajan Pro', 'TrajanPro3', 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-logo-text small {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      font-size: 0.8rem;
+      color: var(--grey);
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ─── Social Section ─── */
+    .social-section {
+      background: var(--black);
+      text-align: center;
+      padding: 100px 4rem;
+      border-top: 1px solid rgba(201,168,64,0.08);
+    }
+
+    .social-inner { max-width: 700px; margin: 0 auto; }
+
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 1.2rem 2.2rem;
+      border: 1px solid rgba(201,168,64,0.3);
+      border-radius: 4px;
+      text-decoration: none;
+      background: rgba(201,168,64,0.04);
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+      min-width: 240px;
+    }
+
+    .social-btn:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,64,0.09);
+      transform: translateY(-3px);
+    }
+
+    .social-btn svg { color: var(--gold); flex-shrink: 0; }
+
+    .social-btn-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .social-btn span {
+      font-size: 1rem;
+      font-weight: 600;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .social-btn small {
+      font-size: 0.72rem;
+      color: var(--grey);
+      margin-top: 2px;
+    }
+
+    /* Nav social icons */
+    .nav-social-icons {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-left: 0.5rem;
+      padding-left: 1.2rem;
+      border-left: 1px solid rgba(201,168,64,0.2);
+    }
+
+    .nav-social-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--grey);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      transition: color 0.25s;
+    }
+
+    .nav-social-link:hover { color: var(--gold); }
+
+    .nav-social-link span {
+      font-weight: 500;
+    }
+
+    .nav-social-mobile {
+      display: none;
+      flex-direction: row;
+      gap: 1.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(201,168,64,0.15);
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .nav-social-link span { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-social-mobile { display: flex; }
+      .nav-social-link span { display: inline; }
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--grey);
+    }
+
+    .footer-bottom a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      section { padding: 80px 2.5rem; }
+      .nav { padding: 0 2.5rem; }
+      footer { padding: 3rem 2.5rem 2rem; }
+      .about-inner { gap: 3rem; }
+      .contact-inner { gap: 3rem; }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 70px 1.5rem; }
+      .nav { padding: 0 1.5rem; }
+      footer { padding: 2.5rem 1.5rem 1.5rem; }
+
+      .nav-social-icons { display: none; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,10,0.98); padding: 1.5rem; gap: 1.5rem; border-bottom: 1px solid rgba(201,168,64,0.15); }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
+
+      .about-inner { grid-template-columns: 1fr; }
+      .about-visual { order: -1; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .lightbox-prev { left: 4px; }
+      .lightbox-next { right: 4px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.2rem; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+
+
+    @keyframes deco-float {
+      0%, 100% { transform: translateY(0px) rotate(var(--r, 0deg)); }
+      50%       { transform: translateY(-14px) rotate(var(--r, 0deg)); }
+    }
+
+    @keyframes deco-swing {
+      0%, 100% { transform: rotate(calc(var(--r, 0deg) - 8deg)); }
+      50%       { transform: rotate(calc(var(--r, 0deg) + 8deg)); }
+    }
+
+    @keyframes deco-spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes deco-bob {
+      0%, 100% { transform: translateY(0) scale(1) rotate(var(--r, 0deg)); }
+      40%       { transform: translateY(-10px) scale(1.04) rotate(var(--r, 0deg)); }
+      70%       { transform: translateY(-5px) scale(1.01) rotate(var(--r, 0deg)); }
+    }
+
+    .deco-anim-float  { animation: deco-float var(--dur, 5s) ease-in-out infinite; }
+    .deco-anim-swing  { animation: deco-swing var(--dur, 4s) ease-in-out infinite; transform-origin: center top; }
+    .deco-anim-spin   { animation: deco-spin  var(--dur, 20s) linear infinite; }
+    .deco-anim-bob    { animation: deco-bob   var(--dur, 6s) ease-in-out infinite; }
+
+    /* ─── Animations ─── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+    .fade-in-delay-4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Navigation ─── -->
+  <nav class="nav" id="nav">
+    <a href="#home" class="nav-logo">
+      <img src="assets/logo/logo.jpg" alt="RPG Carpentry & Joinery Logo" />
+      <div class="nav-logo-text">
+        <span>RPG Carpentry &amp; Joinery</span>
+      </div>
+    </a>
+    <div class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+      <li class="nav-social-mobile">
+        <a href="https://www.facebook.com/profile.php?id=61583045157770&mibextid=wwXIfr&rdid=8ROlW3DUCjJqhGJu&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Cg4mguHjz%2F%3Fmibextid%3DwwXIfr%26ref%3D1#" target="_blank" rel="noopener" class="nav-social-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <span>Facebook</span>
+        </a>
+        <a href="https://www.instagram.com/rpg_carpentry_joinery/?hl=en" target="_blank" rel="noopener" class="nav-social-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <span>Instagram</span>
+        </a>
+      </li>
+    </ul>
+    <div class="nav-social-icons">
+      <a href="https://www.facebook.com/profile.php?id=61583045157770&mibextid=wwXIfr&rdid=8ROlW3DUCjJqhGJu&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Cg4mguHjz%2F%3Fmibextid%3DwwXIfr%26ref%3D1#" target="_blank" rel="noopener" aria-label="Facebook" class="nav-social-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        <span>Facebook</span>
+      </a>
+      <a href="https://www.instagram.com/rpg_carpentry_joinery/?hl=en" target="_blank" rel="noopener" aria-label="Instagram" class="nav-social-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <span>Instagram</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ─── Hero ─── -->
+  <div class="hero-scroll-container" id="heroContainer">
+    <section class="hero" id="home">
+      <canvas class="hero-canvas" id="heroCanvas"></canvas>
+      <div class="hero-loader" id="heroLoader">
+        <img src="assets/logo/logo.jpg" alt="RPG Carpentry & Joinery" style="width:72px;height:72px;border-radius:50%;opacity:0.9;" />
+        <div class="hero-loader-bar-wrap"><div class="hero-loader-bar" id="heroLoaderBar"></div></div>
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content" id="heroContent">
+        <h1>Crafted with <em>Precision</em>,<br/>Built to Last</h1>
+        <p>Expert carpentry and joinery across Devon and Cornwall. From bespoke doors and windows to barn renovations and oak flooring — quality craftsmanship for every project.</p>
+      </div>
+      <div class="hero-scroll" id="heroScrollIndicator">Scroll</div>
+    </section>
+  </div>
+
+
+  <!-- ─── About ─── -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-text">
+        <div class="section-label">About Us</div>
+        <h2 class="section-title">Devon &amp; Cornwall's <em>Trusted</em> Carpenter</h2>
+        <div class="divider"></div>
+        <p class="section-sub">RPG Carpentry &amp; Joinery is a Cornwall-based carpentry and joinery specialist with a passion for exceptional craftsmanship. We work on a wide range of residential and commercial projects across Devon and Cornwall — no job is too small or too large.</p>
+        <p class="section-sub" style="margin-top: 1rem;">Every project is completed to the highest standard, using quality materials and time-honoured techniques combined with modern methods. Our reputation is built on reliability, attention to detail, and work that stands the test of time.</p>
+
+        <div class="about-stats">
+          <div class="stat fade-in fade-in-delay-1">
+            <span class="stat-number">10+</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat fade-in fade-in-delay-2">
+            <span class="stat-number">200+</span>
+            <span class="stat-label">Projects Completed</span>
+          </div>
+          <div class="stat fade-in fade-in-delay-3">
+            <span class="stat-number">2</span>
+            <span class="stat-label">Counties Covered</span>
+          </div>
+          <div class="stat fade-in fade-in-delay-4">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Client Satisfaction</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ─── Services ─── -->
+  <section class="services" id="services">
+    <div class="services-inner">
+      <div class="services-header">
+        <div class="section-label">What We Do</div>
+        <h2 class="section-title">Our <em>Services</em></h2>
+        <div class="divider"></div>
+        <p class="section-sub" style="margin: 0 auto;">From internal joinery to external structures, we handle every aspect of carpentry with the same care and precision.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card fade-in">
+          <span class="service-icon">🚪</span>
+          <h3>Doors &amp; Frames</h3>
+          <p>Bespoke door fitting and framing for all styles of property, internal and external.</p>
+        </div>
+        <div class="service-card fade-in fade-in-delay-1">
+          <span class="service-icon">🪟</span>
+          <h3>Windows</h3>
+          <p>Window installation and replacement — maintaining the character of your home.</p>
+        </div>
+        <div class="service-card fade-in fade-in-delay-2">
+          <span class="service-icon">🌲</span>
+          <h3>Oak Flooring</h3>
+          <p>Expert supply and fitting of solid and engineered oak flooring throughout your home.</p>
+        </div>
+        <div class="service-card fade-in fade-in-delay-3">
+          <span class="service-icon">🏚️</span>
+          <h3>Barn Renovations</h3>
+          <p>Sensitive restoration and conversion of barns and outbuildings with quality materials.</p>
+        </div>
+        <div class="service-card fade-in">
+          <span class="service-icon">🏠</span>
+          <h3>Canopies &amp; Pergolas</h3>
+          <p>Handcrafted outdoor canopies and covered structures for beauty and practicality.</p>
+        </div>
+        <div class="service-card fade-in fade-in-delay-1">
+          <span class="service-icon">🪵</span>
+          <h3>Fencing</h3>
+          <p>Timber fencing solutions for all boundary types — residential and commercial.</p>
+        </div>
+        <div class="service-card fade-in fade-in-delay-2">
+          <span class="service-icon">📐</span>
+          <h3>Skirting &amp; Boxing</h3>
+          <p>Neat and precise skirting boards, architraves, and pipe boxing to finish any room.</p>
+        </div>
+        <div class="service-card fade-in fade-in-delay-3">
+          <span class="service-icon">🏗️</span>
+          <h3>Flat Roofing</h3>
+          <p>Professional flat roof carpentry and decking work as part of wider construction projects.</p>
+        </div>
+        <div class="service-card fade-in fade-in-delay-1">
+          <span class="service-icon">🍷</span>
+          <h3>Bespoke Joinery</h3>
+          <p>Custom-built furniture and joinery — wine racks, shelving, and made-to-measure pieces.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── Portfolio ─── -->
+  <section class="portfolio" id="portfolio">
+    <div class="portfolio-inner">
+      <div class="portfolio-header">
+        <div class="section-label">Our Work</div>
+        <h2 class="section-title">Recent <em>Projects</em></h2>
+        <div class="divider"></div>
+        <p class="section-sub" style="margin: 0 auto;">Click any project to browse the full photo gallery.</p>
+      </div>
+
+      <div class="portfolio-grid" id="portfolioGrid">
+
+        <!-- Barn Renovation -->
+        <div class="portfolio-card fade-in" onclick="openLightbox('Barn Renovation', barnRenovationImgs)">
+          <img src="assets/images/Barn Renovation/682831869_122126180589101505_9129205803296147961_n.jpg" alt="Barn Renovation" loading="lazy" />
+          <div class="portfolio-overlay-always">
+            <span class="portfolio-title">Barn Renovations</span>
+            <span class="portfolio-count">2 photos</span>
+          </div>
+          <div class="portfolio-overlay">
+            <span class="portfolio-hover-detail">Tap to view full gallery</span>
+            <span class="portfolio-expand-btn">View Gallery ›</span>
+          </div>
+        </div>
+
+        <!-- Boxing -->
+        <div class="portfolio-card fade-in fade-in-delay-1" onclick="openLightbox('Boxing', boxingImgs)">
+          <img src="assets/images/Boxing/605296018_122110145409101505_9070001558784422356_n.jpg" alt="Boxing" loading="lazy" />
+          <div class="portfolio-overlay-always">
+            <span class="portfolio-title">Boxing</span>
+            <span class="portfolio-count">2 photos</span>
+          </div>
+          <div class="portfolio-overlay">
+            <span class="portfolio-hover-detail">Tap to view full gallery</span>
+            <span class="portfolio-expand-btn">View Gallery ›</span>
+          </div>
+        </div>
+
+        <!-- Canopies -->
+        <div class="portfolio-card fade-in fade-in-delay-2" onclick="openLightbox('Canopies', canopiesImgs)">
+          <img src="assets/images/Canopies/653961651_122121620601101505_3686513278112899847_n.jpg" alt="Canopies" loading="lazy" />
+          <div class="portfolio-overlay-always">
+            <span class="portfolio-title">Canopies</span>
+            <span class="portfolio-count">3 photos</span>
+          </div>
+          <div class="portfolio-overlay">
+            <span class="portfolio-hover-detail">Tap to view full gallery</span>
+            <span class="portfolio-expand-btn">View Gallery ›</span>
+          </div>
+        </div>
+
+        <!-- Doors -->
+        <div class="portfolio-card fade-in" onclick="openLightbox('Doors', doorsImgs)">
+          <img src="assets/images/Doors/634007381_122117524257101505_3697357957750672570_n.jpg" alt="Doors" loading="lazy" />
+          <div class="portfolio-overlay-always">
+            <span class="portfolio-title">Doors</span>
+            <span class="portfolio-count">3 photos</span>
+          </div>
+          <div class="portfolio-overlay">
+            <span class="portfolio-hover-detail">Tap to view full gallery</span>
+            <span class="portfolio-expand-btn">View Gallery ›</span>
+          </div>
+        </div>
+
+        <!-- Fencing -->
+        <div class="portfolio-card fade-in fade-in-delay-1" onclick="openLightbox('Fencing', fencingImgs)">
+          <img src="assets/images/Fencing/612019479_122112630273101505_4348363065633727684_n.jpg" alt="Fencing" loading="lazy" />
+          <div class="portfolio-overlay-always">
+            <span class="portfolio-title">Fencing</span>
+            <span class="portfolio-count">8 photos</span>
+          </div>
+          <div class="portfolio-overlay">
+            <span class="portfolio-hover-detail">Tap to view full gallery</span>
+            <span class="portfolio-expand-btn">View Gallery ›</span>
+          </div>
+        </div>
+
+        <!-- Flat Roof -->
+        <div class="portfolio-card fade-in fade-in-delay-2" onclick="openLightbox('Flat Roofing', flatRoofImgs)">
+          <img src="assets/images/Flat Roof/676743759_122125513647101505_4725154325162269103_n.jpg" alt="Flat Roofing" loading="lazy" />
+          <div class="portfolio-overlay-always">
+            <span class="portfolio-title">Flat Roofing</span>
+            <span class="portfolio-count">5 photos</span>
+          </div>
+          <div class="portfolio-overlay">
+            <span class="portfolio-hover-detail">Tap to view full gallery</span>
+            <span class="portfolio-expand-btn">View Gallery ›</span>
+          </div>
+        </div>
+
+        <!-- Oak Flooring -->
+        <div class="portfolio-card fade-in" onclick="openLightbox('Oak Flooring', oakFlooringImgs)">
+          <img src="assets/images/Oak Flooring/690627109_122127820137101505_6173672748435044168_n.jpg" alt="Oak Flooring" loading="lazy" />
+          <div class="portfolio-overlay-always">
+            <span class="portfolio-title">Oak Flooring</span>
+            <span class="portfolio-count">3 photos</span>
+          </div>
+          <div class="portfolio-overlay">
+            <span class="portfolio-hover-detail">Tap to view full gallery</span>
+            <span class="portfolio-expand-btn">View Gallery ›</span>
+          </div>
+        </div>
+
+        <!-- Skirting -->
+        <div class="portfolio-card fade-in fade-in-delay-1" onclick="openLightbox('Skirting', skirtingImgs)">
+          <img src="assets/images/Skirting/605296509_122110146393101505_3336744703477498823_n.jpg" alt="Skirting" loading="lazy" />
+          <div class="portfolio-overlay-always">
+            <span class="portfolio-title">Skirting</span>
+            <span class="portfolio-count">4 photos</span>
+          </div>
+          <div class="portfolio-overlay">
+            <span class="portfolio-hover-detail">Tap to view full gallery</span>
+            <span class="portfolio-expand-btn">View Gallery ›</span>
+          </div>
+        </div>
+
+        <!-- Windows -->
+        <div class="portfolio-card fade-in fade-in-delay-2" onclick="openLightbox('Windows', windowsImgs)">
+          <img src="assets/images/Windows/605360705_122110146189101505_3749167232361956821_n.jpg" alt="Windows" loading="lazy" />
+          <div class="portfolio-overlay-always">
+            <span class="portfolio-title">Windows</span>
+            <span class="portfolio-count">2 photos</span>
+          </div>
+          <div class="portfolio-overlay">
+            <span class="portfolio-hover-detail">Tap to view full gallery</span>
+            <span class="portfolio-expand-btn">View Gallery ›</span>
+          </div>
+        </div>
+
+        <!-- Wine Rack -->
+        <div class="portfolio-card fade-in" onclick="openLightbox('Wine Rack', wineRackImgs)">
+          <img src="assets/images/Wine Rack/572174142_122094987909101505_2530922149281804084_n.jpg" alt="Wine Rack" loading="lazy" />
+          <div class="portfolio-overlay-always">
+            <span class="portfolio-title">Bespoke Wine Rack</span>
+            <span class="portfolio-count">1 photo</span>
+          </div>
+          <div class="portfolio-overlay">
+            <span class="portfolio-hover-detail">Tap to view full gallery</span>
+            <span class="portfolio-expand-btn">View Gallery ›</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Lightbox ─── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo gallery">
+    <div class="lightbox-inner">
+      <div class="lightbox-header">
+        <h3 class="lightbox-title" id="lightboxTitle"></h3>
+        <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close gallery">✕</button>
+      </div>
+      <div class="lightbox-main">
+        <button class="lightbox-nav lightbox-prev" onclick="prevImage()" aria-label="Previous">‹</button>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+        <button class="lightbox-nav lightbox-next" onclick="nextImage()" aria-label="Next">›</button>
+      </div>
+      <div class="lightbox-counter" id="lightboxCounter"></div>
+      <div class="lightbox-thumbnails" id="lightboxThumbs"></div>
+    </div>
+  </div>
+
+
+  <!-- ─── Contact ─── -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <div class="section-label">Get In Touch</div>
+        <h2 class="section-title">Request a <em>Free Quote</em></h2>
+        <div class="divider"></div>
+        <p class="section-sub">Ready to start your project? Get in touch today for a free, no-obligation quote. We cover all of Devon and Cornwall.</p>
+
+        <div class="contact-info-items">
+          <div class="contact-item fade-in">
+            <div class="contact-icon">📞</div>
+            <div class="contact-item-text">
+              <span class="contact-item-label">Phone</span>
+              <span class="contact-item-value"><a href="tel:07717299777">07717 299 777</a></span>
+            </div>
+          </div>
+          <div class="contact-item fade-in fade-in-delay-1">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-item-text">
+              <span class="contact-item-label">Email</span>
+              <span class="contact-item-value"><a href="mailto:rpgcarpentryjoinery@outlook.com">rpgcarpentryjoinery@outlook.com</a></span>
+            </div>
+          </div>
+          <div class="contact-item fade-in fade-in-delay-2">
+            <div class="contact-icon">📍</div>
+            <div class="contact-item-text">
+              <span class="contact-item-label">Based In</span>
+              <span class="contact-item-value">Cornwall</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-areas fade-in fade-in-delay-3">
+          <div class="contact-areas-label">Coverage Area</div>
+          <p>We work across <strong style="color:var(--gold)">Devon and Cornwall</strong>, taking on projects of all sizes — from small repairs and joinery work to full barn renovations and major builds.</p>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap fade-in fade-in-delay-1">
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" placeholder="John" required />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Smith" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="07700 000000" />
+          </div>
+          <div class="form-group">
+            <label for="service">Service Required</label>
+            <select id="service" name="service">
+              <option value="">Select a service...</option>
+              <option>Doors &amp; Frames</option>
+              <option>Windows</option>
+              <option>Oak Flooring</option>
+              <option>Barn Renovation</option>
+              <option>Canopies &amp; Pergolas</option>
+              <option>Fencing</option>
+              <option>Skirting &amp; Boxing</option>
+              <option>Flat Roofing</option>
+              <option>Bespoke Joinery</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Project Details</label>
+            <textarea id="message" name="message" placeholder="Tell us about your project — location, scope, any specific requirements..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Enquiry</button>
+          <p class="form-note">We'll get back to you within 24 hours.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── Social ─── -->
+  <section class="social-section" id="social">
+    <div class="social-inner">
+      <div class="section-label">Stay Connected</div>
+      <h2 class="section-title">Follow Us on <em>Social Media</em></h2>
+      <div class="divider" style="margin: 1.5rem auto;"></div>
+      <p class="section-sub" style="margin: 0 auto 3rem;">Keep up with our latest projects, tips, and updates across Devon and Cornwall.</p>
+      <div class="social-buttons">
+        <a href="https://www.facebook.com/profile.php?id=61583045157770&mibextid=wwXIfr&rdid=8ROlW3DUCjJqhGJu&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Cg4mguHjz%2F%3Fmibextid%3DwwXIfr%26ref%3D1#" target="_blank" rel="noopener" class="social-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <div class="social-btn-text">
+            <span>Facebook</span>
+            <small>@RPG Carpentry &amp; Joinery</small>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/rpg_carpentry_joinery/?hl=en" target="_blank" rel="noopener" class="social-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <div class="social-btn-text">
+            <span>Instagram</span>
+            <small>@rpg_carpentry_joinery</small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── Footer ─── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-logo">
+          <img src="assets/logo/logo.jpg" alt="RPG Carpentry & Joinery" />
+          <div class="footer-logo-text">
+            <span>RPG Carpentry &amp; Joinery</span>
+          </div>
+        </div>
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 RPG Carpentry &amp; Joinery. All rights reserved.</span>
+        <span>Cornwall &amp; Devon &nbsp;·&nbsp; <a href="tel:07717299777">07717 299 777</a></span>
+        <span>Website built by <a href="https://aposlostudios.com/?utm_source=will&utm_medium=partner&utm_campaign=referral" target="_blank" rel="noopener" style="background:var(--gold-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:500;">Aposlo Studios</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Image Data ───
+    const barnRenovationImgs = [
+      'assets/images/Barn Renovation/682429089_122126180547101505_7381501551998115919_n.jpg',
+      'assets/images/Barn Renovation/682831869_122126180589101505_9129205803296147961_n.jpg',
+    ];
+    const boxingImgs = [
+      'assets/images/Boxing/605296018_122110145409101505_9070001558784422356_n.jpg',
+      'assets/images/Boxing/605297378_122110145493101505_8519637659166971402_n.jpg',
+    ];
+    const canopiesImgs = [
+      'assets/images/Canopies/653961651_122121620601101505_3686513278112899847_n.jpg',
+      'assets/images/Canopies/654419153_122121620649101505_3849406346830002221_n.jpg',
+      'assets/images/Canopies/654882543_122121620559101505_8182358490369515888_n.jpg',
+    ];
+    const doorsImgs = [
+      'assets/images/Doors/633588358_122117524341101505_312088927708765719_n.jpg',
+      'assets/images/Doors/634007381_122117524257101505_3697357957750672570_n.jpg',
+      'assets/images/Doors/636699442_122117524299101505_405094674981210118_n.jpg',
+    ];
+    const fencingImgs = [
+      'assets/images/Fencing/612019479_122112630273101505_4348363065633727684_n.jpg',
+      'assets/images/Fencing/612495138_122112630507101505_2092744940406276606_n.jpg',
+      'assets/images/Fencing/613176099_122112630375101505_1646368107620801861_n.jpg',
+      'assets/images/Fencing/613217043_122112630465101505_7046394084973231867_n.jpg',
+      'assets/images/Fencing/613389508_122112630417101505_4564546655646271311_n.jpg',
+      'assets/images/Fencing/613931549_122112630321101505_314100360996310922_n.jpg',
+      'assets/images/Fencing/655251849_122121884961101505_43160742759108544_n.jpg',
+      'assets/images/Fencing/655762774_122121884859101505_128045404888983709_n.jpg',
+    ];
+    const flatRoofImgs = [
+      'assets/images/Flat Roof/673735569_122125513743101505_4987473777270349443_n.jpg',
+      'assets/images/Flat Roof/673742660_122125513827101505_509083354026913576_n.jpg',
+      'assets/images/Flat Roof/674539914_122125513689101505_8395890818047874597_n.jpg',
+      'assets/images/Flat Roof/675529847_122125513785101505_261739316293341691_n.jpg',
+      'assets/images/Flat Roof/676743759_122125513647101505_4725154325162269103_n.jpg',
+    ];
+    const oakFlooringImgs = [
+      'assets/images/Oak Flooring/689454902_122127819969101505_2970992432609287341_n.jpg',
+      'assets/images/Oak Flooring/690052236_122127820095101505_5513084447819797384_n.jpg',
+      'assets/images/Oak Flooring/690627109_122127820137101505_6173672748435044168_n.jpg',
+    ];
+    const skirtingImgs = [
+      'assets/images/Skirting/605296509_122110146393101505_3336744703477498823_n.jpg',
+      'assets/images/Skirting/605306558_122110146333101505_4709009831046949021_n.jpg',
+      'assets/images/Skirting/605337969_122110146231101505_9184663786233639000_n.jpg',
+      'assets/images/Skirting/605395743_122110146273101505_8997068896089791740_n.jpg',
+    ];
+    const windowsImgs = [
+      'assets/images/Windows/605360705_122110146189101505_3749167232361956821_n.jpg',
+      'assets/images/Windows/606865263_122110146147101505_4238857497339169990_n.jpg',
+    ];
+    const wineRackImgs = [
+      'assets/images/Wine Rack/572174142_122094987909101505_2530922149281804084_n.jpg',
+    ];
+
+    // ─── Lightbox Logic ───
+    let currentImages = [];
+    let currentIndex = 0;
+
+    function openLightbox(title, images) {
+      currentImages = images;
+      currentIndex = 0;
+      document.getElementById('lightboxTitle').textContent = title;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      renderLightbox();
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function renderLightbox() {
+      const img = document.getElementById('lightboxImg');
+      img.src = currentImages[currentIndex];
+      img.alt = `Photo ${currentIndex + 1}`;
+
+      document.getElementById('lightboxCounter').textContent =
+        `${currentIndex + 1} / ${currentImages.length}`;
+
+      const thumbsContainer = document.getElementById('lightboxThumbs');
+      thumbsContainer.innerHTML = '';
+      currentImages.forEach((src, i) => {
+        const thumb = document.createElement('img');
+        thumb.src = src;
+        thumb.className = 'lightbox-thumb' + (i === currentIndex ? ' active' : '');
+        thumb.alt = `Thumbnail ${i + 1}`;
+        thumb.onclick = () => { currentIndex = i; renderLightbox(); };
+        thumbsContainer.appendChild(thumb);
+      });
+
+      // Scroll active thumb into view
+      const activeThumbs = thumbsContainer.querySelectorAll('.active');
+      if (activeThumbs.length) {
+        activeThumbs[0].scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+      }
+
+      // Hide nav buttons if single image
+      document.querySelector('.lightbox-prev').style.display = currentImages.length > 1 ? '' : 'none';
+      document.querySelector('.lightbox-next').style.display = currentImages.length > 1 ? '' : 'none';
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+      renderLightbox();
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % currentImages.length;
+      renderLightbox();
+    }
+
+    // Keyboard nav
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'ArrowRight') nextImage();
+    });
+
+    // Click outside lightbox inner to close
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('lightbox')) closeLightbox();
+    });
+
+    // ─── Hero canvas frame scroll ───
+    (function () {
+      const FRAME_COUNT  = 193;
+      const FRAME_PATH   = 'assets/video/frames/frame';
+
+      const container  = document.getElementById('heroContainer');
+      const canvas     = document.getElementById('heroCanvas');
+      const loader     = document.getElementById('heroLoader');
+      const loaderBar  = document.getElementById('heroLoaderBar');
+      const content    = document.getElementById('heroContent');
+      const indicator  = document.getElementById('heroScrollIndicator');
+      const ctx        = canvas.getContext('2d', { alpha: false });
+
+      const frames     = new Array(FRAME_COUNT);
+      let loadedCount  = 0;
+      let currentIndex = -1;
+      let scrollY      = window.scrollY;
+      let ticking      = false;
+      let ready        = false;
+
+      // Size canvas to fill viewport, redraw on resize
+      function sizeCanvas() {
+        canvas.width  = window.innerWidth  * (window.devicePixelRatio || 1);
+        canvas.height = window.innerHeight * (window.devicePixelRatio || 1);
+        canvas.style.width  = window.innerWidth  + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        if (currentIndex >= 0) drawFrame(currentIndex);
+      }
+      window.addEventListener('resize', sizeCanvas, { passive: true });
+      sizeCanvas();
+
+      function drawFrame(index) {
+        const img = frames[index];
+        if (!img || !img.complete || !img.naturalWidth) return;
+        const cw = canvas.width, ch = canvas.height;
+        const ir = img.naturalWidth / img.naturalHeight;
+        const cr = cw / ch;
+        let dw, dh, dx, dy;
+
+        if (window.innerWidth < 768) {
+          // Mobile: cover fit to height, anchor crop to right side of frame
+          dh = ch;
+          dw = dh * ir;
+          dx = cw - dw; // right-align — shows rightmost portion of the landscape frame
+          dy = 0;
+        } else {
+          // Desktop: cover — fill the full viewport, centred
+          if (ir > cr) { dh = ch; dw = dh * ir; dx = (cw - dw) / 2; dy = 0; }
+          else         { dw = cw; dh = dw / ir; dx = 0; dy = (ch - dh) / 2; }
+        }
+
+        ctx.drawImage(img, dx, dy, dw, dh);
+        currentIndex = index;
+      }
+
+      function onFrameLoaded() {
+        loadedCount++;
+        const pct = (loadedCount / FRAME_COUNT) * 100;
+        loaderBar.style.width = pct + '%';
+
+        // Draw frame 0 as soon as it's ready so there's something to see
+        if (loadedCount === 1) drawFrame(0);
+
+        if (loadedCount === FRAME_COUNT) {
+          ready = true;
+          setTimeout(() => {
+            loader.classList.add('hidden');
+            setTimeout(() => { loader.style.display = 'none'; }, 500);
+          }, 200);
+          requestAnimationFrame(update);
+        }
+      }
+
+      // Load all frames — stagger slightly so the browser isn't flooded
+      function loadFrames() {
+        for (let i = 0; i < FRAME_COUNT; i++) {
+          const img = new Image();
+          const num = String(i + 1).padStart(4, '0');
+          img.onload  = onFrameLoaded;
+          img.onerror = onFrameLoaded; // still increment so we don't stall
+          img.src = FRAME_PATH + num + '.jpg';
+          frames[i] = img;
+        }
+      }
+      loadFrames();
+
+      function update() {
+        ticking = false;
+        if (!ready) return;
+
+        const maxScroll = container.offsetHeight - window.innerHeight;
+        const raw       = scrollY - container.offsetTop;
+        const progress  = Math.max(0, Math.min(1, raw / maxScroll));
+        const index     = Math.min(FRAME_COUNT - 1, Math.round(progress * (FRAME_COUNT - 1)));
+
+        if (index !== currentIndex) drawFrame(index);
+
+        if (indicator) indicator.style.opacity = Math.max(0, 1 - progress * 14);
+      }
+
+      window.addEventListener('scroll', function () {
+        scrollY = window.scrollY;
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+
+      requestAnimationFrame(update);
+    }());
+
+    // ─── Nav scroll effect ───
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ─── Mobile nav toggle ───
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Close nav on link click (mobile)
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // ─── Scroll animations ───
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ─── Contact form handler ───
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = 'linear-gradient(135deg, #4a7a4a, #5a9a5a)';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Send Enquiry';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
