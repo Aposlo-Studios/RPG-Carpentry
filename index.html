@@ -187,6 +187,7 @@
       display: block;
     }
 
+
     .hero-loader {
       position: absolute;
       inset: 0;
@@ -1591,6 +1592,10 @@
 
       <div class="contact-form-wrap fade-in fade-in-delay-1">
         <form class="contact-form" onsubmit="handleSubmit(event)">
+          <input type="hidden" name="access_key" value="bf8b9bc6-24f7-4b0a-84e3-00c7b4ee85da" />
+          <input type="hidden" name="subject" value="New Enquiry — RPG Carpentry & Joinery" />
+          <input type="hidden" name="from_name" value="RPG Carpentry Website" />
+          <input type="checkbox" name="botcheck" style="display:none" />
           <div class="form-row">
             <div class="form-group">
               <label for="firstName">First Name</label>
@@ -1817,16 +1822,18 @@
       if (e.target === document.getElementById('lightbox')) closeLightbox();
     });
 
-    // ─── Hero canvas frame scroll ───
+    // ─── Hero canvas frame scroll — desktop + mobile ───
     (function () {
-      const FRAME_COUNT  = 193;
-      const FRAME_PATH   = 'assets/video/frames/frame';
+      const isMobile   = window.innerWidth < 768;
+      const FRAME_COUNT = 193;
+      const FRAME_PATH  = isMobile
+        ? 'assets/video/frames-mobile/frame'
+        : 'assets/video/frames/frame';
 
       const container  = document.getElementById('heroContainer');
       const canvas     = document.getElementById('heroCanvas');
       const loader     = document.getElementById('heroLoader');
       const loaderBar  = document.getElementById('heroLoaderBar');
-      const content    = document.getElementById('heroContent');
       const indicator  = document.getElementById('heroScrollIndicator');
       const ctx        = canvas.getContext('2d', { alpha: false });
 
@@ -1837,7 +1844,6 @@
       let ticking      = false;
       let ready        = false;
 
-      // Size canvas to fill viewport, redraw on resize
       function sizeCanvas() {
         canvas.width  = window.innerWidth  * (window.devicePixelRatio || 1);
         canvas.height = window.innerHeight * (window.devicePixelRatio || 1);
@@ -1855,31 +1861,16 @@
         const ir = img.naturalWidth / img.naturalHeight;
         const cr = cw / ch;
         let dw, dh, dx, dy;
-
-        if (window.innerWidth < 768) {
-          // Mobile: cover fit to height, anchor crop to right side of frame
-          dh = ch;
-          dw = dh * ir;
-          dx = cw - dw; // right-align — shows rightmost portion of the landscape frame
-          dy = 0;
-        } else {
-          // Desktop: cover — fill the full viewport, centred
-          if (ir > cr) { dh = ch; dw = dh * ir; dx = (cw - dw) / 2; dy = 0; }
-          else         { dw = cw; dh = dw / ir; dx = 0; dy = (ch - dh) / 2; }
-        }
-
+        if (ir > cr) { dh = ch; dw = dh * ir; dx = (cw - dw) / 2; dy = 0; }
+        else         { dw = cw; dh = dw / ir; dx = 0; dy = (ch - dh) / 2; }
         ctx.drawImage(img, dx, dy, dw, dh);
         currentIndex = index;
       }
 
       function onFrameLoaded() {
         loadedCount++;
-        const pct = (loadedCount / FRAME_COUNT) * 100;
-        loaderBar.style.width = pct + '%';
-
-        // Draw frame 0 as soon as it's ready so there's something to see
+        loaderBar.style.width = (loadedCount / FRAME_COUNT) * 100 + '%';
         if (loadedCount === 1) drawFrame(0);
-
         if (loadedCount === FRAME_COUNT) {
           ready = true;
           setTimeout(() => {
@@ -1890,30 +1881,23 @@
         }
       }
 
-      // Load all frames — stagger slightly so the browser isn't flooded
-      function loadFrames() {
-        for (let i = 0; i < FRAME_COUNT; i++) {
-          const img = new Image();
-          const num = String(i + 1).padStart(4, '0');
-          img.onload  = onFrameLoaded;
-          img.onerror = onFrameLoaded; // still increment so we don't stall
-          img.src = FRAME_PATH + num + '.jpg';
-          frames[i] = img;
-        }
+      for (let i = 0; i < FRAME_COUNT; i++) {
+        const img = new Image();
+        const num = String(i + 1).padStart(4, '0');
+        img.onload  = onFrameLoaded;
+        img.onerror = onFrameLoaded;
+        img.src = FRAME_PATH + num + '.jpg';
+        frames[i] = img;
       }
-      loadFrames();
 
       function update() {
         ticking = false;
         if (!ready) return;
-
         const maxScroll = container.offsetHeight - window.innerHeight;
         const raw       = scrollY - container.offsetTop;
         const progress  = Math.max(0, Math.min(1, raw / maxScroll));
         const index     = Math.min(FRAME_COUNT - 1, Math.round(progress * (FRAME_COUNT - 1)));
-
         if (index !== currentIndex) drawFrame(index);
-
         if (indicator) indicator.style.opacity = Math.max(0, 1 - progress * 14);
       }
 
@@ -1954,19 +1938,45 @@
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // ─── Contact form handler ───
-    function handleSubmit(e) {
+    // ─── Contact form handler (Web3Forms) ───
+    async function handleSubmit(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('.form-submit');
-      btn.textContent = 'Message Sent ✓';
-      btn.style.background = 'linear-gradient(135deg, #4a7a4a, #5a9a5a)';
+      const form = e.target;
+      const btn = form.querySelector('.form-submit');
+      const originalText = btn.textContent;
+
+      btn.textContent = 'Sending...';
       btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = 'Send Enquiry';
-        btn.style.background = '';
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          btn.textContent = 'Message Sent ✓';
+          btn.style.background = 'linear-gradient(135deg, #4a7a4a, #5a9a5a)';
+          form.reset();
+          setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+            btn.disabled = false;
+          }, 4000);
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      } catch (err) {
+        btn.textContent = 'Error — Try Again';
+        btn.style.background = 'linear-gradient(135deg, #7a4a4a, #9a5a5a)';
         btn.disabled = false;
-        e.target.reset();
-      }, 4000);
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = '';
+        }, 3000);
+      }
     }
   </script>
 </body>
