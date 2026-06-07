@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MXQS19MNTS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MXQS19MNTS');
+  </script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carpentry &amp; Joinery Guides | RPG Carpentry &amp; Joinery</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/logo/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/logo/favicon-192.png" />
+  <link rel="apple-touch-icon" href="../assets/logo/apple-touch-icon.png" />
+  <meta name="description" content="Expert carpentry and joinery guides from RPG Carpentry & Joinery. Cost guides, barn conversion planning, oak flooring advice and more for Devon & Cornwall homeowners." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.rpgcarpentryjoinery.co.uk/blog/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Carpentry & Joinery Guides | RPG Carpentry & Joinery" />
+  <meta property="og:description" content="Expert carpentry and joinery guides from RPG Carpentry & Joinery. Cost guides, barn conversion planning, oak flooring advice and more for Devon & Cornwall homeowners." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.rpgcarpentryjoinery.co.uk/blog/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Carpentry & Joinery Guides | RPG Carpentry & Joinery" />
+  <meta name="twitter:description" content="Expert carpentry and joinery guides from RPG Carpentry & Joinery. Cost guides, barn conversion planning, oak flooring advice and more." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #c9a840; --gold-light: #e8c870; --gold-dark: #9a7820;
+      --black: #0a0a0a; --dark: #111111; --darker: #0d0d0d;
+      --white: #ffffff; --grey: #888888; --light-grey: #cccccc;
+      --gold-gradient: linear-gradient(135deg, #9a7820 0%, #c9a840 40%, #f0d575 65%, #c9a840 80%, #9a7820 100%);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; height: 70px; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(201,168,64,0.15); }
+    .nav-logo { text-decoration: none; font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-back { color: var(--gold); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em; transition: opacity 0.2s; }
+    .nav-back:hover { opacity: 0.8; }
+    .content { max-width: 900px; margin: 0 auto; padding: 120px 2rem 80px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; margin-bottom: 0.5rem; text-align: center; }
+    h1 em { font-style: normal; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .subtitle { text-align: center; color: var(--grey); font-size: 1rem; margin-bottom: 3rem; }
+    .blog-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    .blog-card { background: var(--dark); border: 1px solid rgba(201,168,64,0.15); border-radius: 8px; padding: 2rem; transition: border-color 0.3s, transform 0.3s; }
+    .blog-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .blog-card-date { font-size: 0.75rem; color: var(--grey); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+    .blog-card h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .blog-card h2 a { color: var(--white); text-decoration: none; transition: color 0.2s; }
+    .blog-card h2 a:hover { color: var(--gold); }
+    .blog-card p { font-size: 0.9rem; color: var(--light-grey); line-height: 1.7; margin-bottom: 1rem; }
+    .blog-card .read-more { color: var(--gold); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; }
+    .blog-card .read-more:hover { text-decoration: underline; }
+    footer { background: var(--darker); border-top: 1px solid rgba(201,168,64,0.12); padding: 2rem 4rem; text-align: center; font-size: 0.72rem; color: var(--grey); }
+    footer a { color: var(--gold); text-decoration: none; }
+    @media (max-width: 768px) { .nav { padding: 0 1.5rem; } .content { padding: 100px 1.5rem 60px; } footer { padding: 2rem 1.5rem; } h1 { font-size: 1.8rem; } }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-logo">RPG Carpentry &amp; Joinery</a>
+    <div class="nav-links">
+      <a href="/" class="nav-back">&larr; Back to Home</a>
+    </div>
+  </nav>
+
+  <div class="content">
+    <h1>Carpentry &amp; Joinery <em>Guides</em></h1>
+    <p class="subtitle">Expert advice on costs, planning, and materials for your next project in Devon &amp; Cornwall.</p>
+
+    <div class="blog-grid">
+      <article class="blog-card">
+        <p class="blog-card-date">7 June 2026</p>
+        <h2><a href="/blog/how-much-does-carpentry-cost-devon-cornwall.html">How Much Does Carpentry Cost in Devon &amp; Cornwall?</a></h2>
+        <p>A detailed 2026 price guide covering typical costs for fitted doors, windows, oak flooring, fencing, stairs, and barn renovations across Devon and Cornwall. Includes what affects pricing and how to get accurate quotes.</p>
+        <a href="/blog/how-much-does-carpentry-cost-devon-cornwall.html" class="read-more">Read the full guide &rarr;</a>
+      </article>
+
+      <article class="blog-card">
+        <p class="blog-card-date">7 June 2026</p>
+        <h2><a href="/blog/barn-conversion-planning-cornwall.html">Barn Conversion Planning in Cornwall &amp; Devon</a></h2>
+        <p>Everything you need to know about converting a barn in Cornwall or Devon. Covers planning permission, listed building requirements, Class Q permitted development, timelines, costs, and traditional materials.</p>
+        <a href="/blog/barn-conversion-planning-cornwall.html" class="read-more">Read the full guide &rarr;</a>
+      </article>
+
+      <article class="blog-card">
+        <p class="blog-card-date">7 June 2026</p>
+        <h2><a href="/blog/choosing-oak-flooring-guide.html">How to Choose Oak Flooring for Your Home</a></h2>
+        <p>Solid vs engineered oak, grades, thickness options, installation methods, and costs per square metre. Plus specific advice for coastal properties and older buildings in Devon and Cornwall.</p>
+        <a href="/blog/choosing-oak-flooring-guide.html" class="read-more">Read the full guide &rarr;</a>
+      </article>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 RPG Carpentry &amp; Joinery. All rights reserved. | <a href="/privacy.html">Privacy Policy</a></p>
+  </footer>
+</body>
+</html>
